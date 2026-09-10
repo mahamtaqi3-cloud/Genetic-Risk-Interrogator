@@ -1,0 +1,18 @@
+[
+  {
+    "id": "PAT_001",
+    "name": "Amina Diallo",
+    "raw_prs": 2.85,
+    "admixture": {"AFR": 0.85, "EUR": 0.15},
+    "environmental_factor": 0.9,
+    "condition": "Type 2 Diabetes"
+  },
+  {
+    "id": "PAT_002",
+    "name": "Marcus Chen",
+    "raw_prs": 1.40,
+    "admixture": {"EAS": 0.90, "EUR": 0.10},
+    "environmental_factor": 1.2,
+    "condition": "Cardiovascular Disease"
+  }
+]
