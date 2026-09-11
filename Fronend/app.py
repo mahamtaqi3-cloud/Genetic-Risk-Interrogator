@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from datetime import datetime
+from fpdf import FPDF
+import tempfile
+import os
 
 # --- 1. CLEAN LIGHT CLINICAL THEME ---
 st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", layout="wide")
@@ -137,7 +140,6 @@ st.altair_chart(chart, use_container_width=True)
 st.markdown("<br><hr><h2>🎯 Final Diagnostic Assessment & Report</h2>", unsafe_allow_html=True)
 
 if st.button("Run Contextual Analysis", type="primary"):
-    # Calculate directly inside Streamlit for easy cloud deployment
     bias_correction = 1.0 - (eur_f * 0.25)
     adj_score = round(raw_prs * bias_correction * env_factor, 3)
     recommendation = f"Adjusted for {int(eur_f*100)}% European and multi-ancestry admixture model. Mitigated false-positive risk over-attribution common in Euro-centric GWAS training sets."
@@ -177,29 +179,65 @@ if st.button("Run Contextual Analysis", type="primary"):
             st.markdown("#### Clinical Interpretation & Recommendations")
             st.success(recommendation)
 
-# --- EXPORT REPORT BUTTON ---
+# --- EXPORT REPORT BUTTON (PDF GENERATION) ---
 if 'last_analysis' in st.session_state:
     res = st.session_state['last_analysis']
-    report_content = f"""# RiskContext AI - Clinical Diagnostic Report
-Generated: {res['timestamp']}
+    
+    # Generate clean PDF Report
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("helvetica", "B", 18)
+    pdf.set_text_color(0, 43, 92)
+    pdf.cell(0, 10, "Genetic Risk Interrogator - Diagnostic Report", new_x="LMARGIN", new_y="NEXT", align="C")
+    
+    pdf.set_font("helvetica", "I", 10)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 8, f"Generated on: {res['timestamp']}", new_x="LMARGIN", new_y="NEXT", align="C")
+    pdf.ln(10)
+    
+    pdf.set_font("helvetica", "B", 14)
+    pdf.set_text_color(0, 86, 179)
+    pdf.cell(0, 10, "1. Patient Genomic Summary", new_x="LMARGIN", new_y="NEXT")
+    
+    pdf.set_font("helvetica", "", 11)
+    pdf.set_text_color(50, 50, 50)
+    pdf.cell(0, 7, f"- Raw Polygenic Risk Score (PRS): {res['raw_prs']}", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 7, f"- Environmental Risk Multiplier: {res['env']}", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(5)
+    
+    pdf.set_font("helvetica", "B", 14)
+    pdf.set_text_color(0, 86, 179)
+    pdf.cell(0, 10, "2. Global Admixture Breakdown", new_x="LMARGIN", new_y="NEXT")
+    
+    pdf.set_font("helvetica", "", 11)
+    pdf.set_text_color(50, 50, 50)
+    pdf.cell(0, 7, f"- European (EUR): {res['eur']}%", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 7, f"- African (AFR): {res['afr']}%", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 7, f"- East Asian (EAS): {res['eas']}%", new_x="LMARGIN", new_y="NEXT")
+    pdf.cell(0, 7, f"- South Asian (SAS): {res['sas']}%", new_x="LMARGIN", new_y="NEXT")
+    pdf.ln(5)
+    
+    pdf.set_font("helvetica", "B", 14)
+    pdf.set_text_color(0, 86, 179)
+    pdf.cell(0, 10, "3. Risk Evaluation Results & Recommendations", new_x="LMARGIN", new_y="NEXT")
+    
+    pdf.set_font("helvetica", "B", 11)
+    pdf.cell(0, 7, f"Context-Adjusted Risk Score: {res['adj_score']}", new_x="LMARGIN", new_y="NEXT")
+    
+    pdf.set_font("helvetica", "", 11)
+    pdf.multi_cell(0, 7, f"Clinical Interpretation: {res['recommendation']}")
 
-## Patient Genomic Summary
-- **Raw Polygenic Risk Score (PRS):** {res['raw_prs']}
-- **Environmental Risk Multiplier:** {res['env']}
+    # Save to temp file for download
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
+        pdf.output(tmp_file.name)
+        tmp_path = tmp_file.name
 
-## Global Admixture Breakdown
-- European (EUR): {res['eur']}%
-- African (AFR): {res['afr']}%
-- East Asian (EAS): {res['eas']}%
-- South Asian (SAS): {res['sas']}%
+    with open(tmp_path, "rb") as pdf_file:
+        PDF_bytes = pdf_file.read()
 
-## Risk Evaluation Results
-- **Context-Adjusted Risk Score:** {res['adj_score']}
-- **Clinical Recommendation:** {res['recommendation']}
-"""
     st.download_button(
-        label="📥 Download Clinical Report (Markdown)",
-        data=report_content,
-        file_name=f"clinical_risk_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.md",
-        mime="text/markdown"
+        label="📥 Download Professional Clinical Report (PDF)",
+        data=PDF_bytes,
+        file_name=f"clinical_risk_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf",
+        mime="application/pdf"
     )
