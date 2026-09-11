@@ -12,7 +12,7 @@ st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", lay
 st.markdown("""
     <style>
     .stApp {
-        background-color: #fbf9fc;
+        background-color: #f3eef8;
     }
     .main-header {
         background: linear-gradient(135deg, #2c1654 0%, #4a2874 100%);
@@ -50,7 +50,7 @@ st.markdown("""
         font-weight: 700;
     }
     section[data-testid="stSidebar"] {
-        background-color: #f3eef8;
+        background-color: #ede5f5;
         border-right: 1px solid #d4c2ed;
     }
     /* Style Primary Button to Dark Purple */
@@ -62,12 +62,18 @@ st.markdown("""
         background-color: #381e5c !important;
         border-color: #381e5c !important;
     }
-    /* Style Sliders to Dark Purple */
+    /* Comprehensive Slider / Scrollbar Styling to Dark Purple */
+    input[type="range"] {
+        accent-color: #4a2874 !important;
+    }
     div[data-baseweb="slider"] div[role="slider"] {
         background-color: #4a2874 !important;
         border-color: #4a2874 !important;
     }
     div[data-baseweb="slider"] div[data-testid="stSliderTrack"] {
+        background-color: #4a2874 !important;
+    }
+    .stSlider [data-baseweb="slider"] div div div {
         background-color: #4a2874 !important;
     }
     </style>
