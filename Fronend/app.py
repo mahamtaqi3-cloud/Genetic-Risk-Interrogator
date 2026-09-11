@@ -117,8 +117,7 @@ st.markdown("### 📊 Ancestry Profile Visualization")
 
 ancestry_df = pd.DataFrame({
     'Ancestry': ['European', 'African', 'East Asian', 'South Asian'],
-    'Percentage': [eur, afr, eas, sas],
-    'Color': ['#4e79a7', '#e15759', '#76b7b2', '#59a14f']
+    'Percentage': [eur, afr, eas, sas]
 })
 
 base = alt.Chart(ancestry_df).encode(
@@ -128,7 +127,14 @@ base = alt.Chart(ancestry_df).encode(
 )
 
 bar = base.mark_bar(cornerRadiusTopLeft=6, cornerRadiusTopRight=6).encode(
-    color=alt.Color('Ancestry', scale=None),
+    color=alt.Color(
+        'Ancestry',
+        scale=alt.Scale(
+            domain=['European', 'African', 'East Asian', 'South Asian'],
+            range=['#4e79a7', '#e15759', '#76b7b2', '#59a14f']
+        ),
+        legend=None
+    ),
     opacity=alt.value(0.9)
 )
 
