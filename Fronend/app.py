@@ -6,22 +6,22 @@ from fpdf import FPDF
 import tempfile
 import os
 
-# --- 1. LIGHT GREEN CLINICAL THEME ---
+# --- 1. LUXURY PURPLE CLINICAL THEME ---
 st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", layout="wide")
 
 st.markdown("""
     <style>
     .stApp {
-        background-color: #f6fcf7;
+        background-color: #fbf9fc;
     }
     .main-header {
-        background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
+        background: linear-gradient(135deg, #2c1654 0%, #4a2874 100%);
         color: white;
         padding: 30px;
         border-radius: 12px;
         text-align: center;
         margin-bottom: 25px;
-        box-shadow: 0 4px 6px rgba(45,106,79,0.1);
+        box-shadow: 0 4px 6px rgba(44,22,84,0.1);
     }
     .main-header h1 {
         color: white;
@@ -30,28 +30,32 @@ st.markdown("""
         font-size: 28px;
     }
     .main-header p {
-        color: #d8f3dc;
+        color: #e6dbf2;
         margin-top: 5px;
         font-weight: 300;
     }
     div[data-testid="metric-container"] {
         background-color: white;
-        border: 1px solid #d8f3dc;
+        border: 1px solid #d4c2ed;
         padding: 15px;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(45,106,79,0.03);
+        box-shadow: 0 2px 4px rgba(74,40,116,0.03);
     }
     div[data-testid="metric-container"] > label {
-        color: #2d6a4f !important;
+        color: #4a2874 !important;
         font-weight: 600;
     }
     div[data-testid="metric-container"] > div > div {
-        color: #40916c !important;
+        color: #6b35af !important;
         font-weight: 700;
     }
     section[data-testid="stSidebar"] {
-        background-color: #eef9f0;
-        border-right: 1px solid #d8f3dc;
+        background-color: #f3eef8;
+        border-right: 1px solid #d4c2ed;
+    }
+    /* Style sliders/scrolling tools with dark purple accent */
+    .stSlider slider {
+        accent-color: #4a2874 !important;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -186,7 +190,7 @@ if 'last_analysis' in st.session_state:
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("helvetica", "B", 18)
-    pdf.set_text_color(27, 67, 50)
+    pdf.set_text_color(44, 22, 84)
     pdf.cell(0, 10, "Genetic Risk Interrogator - Diagnostic Report", new_x="LMARGIN", new_y="NEXT", align="C")
     
     pdf.set_font("helvetica", "I", 10)
@@ -195,7 +199,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(10)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(45, 106, 79)
+    pdf.set_text_color(74, 40, 116)
     pdf.cell(0, 10, "1. Patient Genomic Summary", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "", 11)
@@ -205,7 +209,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(5)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(45, 106, 79)
+    pdf.set_text_color(74, 40, 116)
     pdf.cell(0, 10, "2. Global Admixture Breakdown", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "", 11)
@@ -217,7 +221,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(5)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(45, 106, 79)
+    pdf.set_text_color(74, 40, 116)
     pdf.cell(0, 10, "3. Risk Evaluation Results & Recommendations", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "B", 11)
