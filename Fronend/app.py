@@ -11,6 +11,11 @@ st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", lay
 
 st.markdown("""
     <style>
+    /* Override Streamlit global theme primary accent color */
+    :root {
+        --primary-color: #4a2874 !important;
+    }
+    
     .stApp {
         background-color: #f3eef8;
     }
@@ -53,6 +58,7 @@ st.markdown("""
         background-color: #ede5f5;
         border-right: 1px solid #d4c2ed;
     }
+    
     /* Style Primary Button to Dark Purple */
     button[kind="primary"] {
         background-color: #4a2874 !important;
@@ -62,26 +68,24 @@ st.markdown("""
         background-color: #381e5c !important;
         border-color: #381e5c !important;
     }
-    /* Comprehensive Slider Styling to Dark Purple */
+
+    /* Force all slider thumbs, tracks, and active fills to Dark Purple */
     input[type="range"] {
         accent-color: #4a2874 !important;
     }
     div[data-baseweb="slider"] div[role="slider"] {
         background-color: #4a2874 !important;
         border-color: #4a2874 !important;
-        box-shadow: 0 0 0 2px #d4c2ed !important;
     }
-    div[data-baseweb="slider"] div[data-testid="stSliderTrack"],
-    div[data-baseweb="slider"] div[data-baseweb="track"] {
+    div[data-baseweb="slider"] div[data-testid="stSliderTrack"] {
         background-color: #4a2874 !important;
     }
-    /* Target BaseWeb specific internal track fills/grabs */
-    .stSlider [data-baseweb="slider"] div div {
-        background-color: #4a2874;
-    }
-    /* Target Streamlit specific slider thumb / track spans */
-    span[data-baseweb="tag"], div[role="slider"] {
+    .stSlider div[data-baseweb="slider"] div div div {
         background-color: #4a2874 !important;
+    }
+    div[data-baseweb="slider"] [data-testid="stSliderThumb"] {
+        background-color: #4a2874 !important;
+        border-color: #4a2874 !important;
     }
     </style>
 """, unsafe_allow_html=True)
