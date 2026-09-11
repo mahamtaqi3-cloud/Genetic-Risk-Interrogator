@@ -50,7 +50,7 @@ st.markdown("""
         font-weight: 700;
     }
     section[data-testid="stSidebar"] {
-        background-color: #ffffff;
+        background-color: #eef9f0;
         border-right: 1px solid #d8f3dc;
     }
     </style>
