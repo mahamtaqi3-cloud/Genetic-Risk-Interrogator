@@ -11,7 +11,6 @@ st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", lay
 
 st.markdown("""
     <style>
-    /* Override Streamlit core theme variables to change default red to dark purple */
     :root, body, [data-testid="stAppViewContainer"], .stApp {
         --primary-color: #4a2874 !important;
         background-color: #f3eef8 !important;
@@ -67,16 +66,26 @@ st.markdown("""
         border-color: #381e5c !important;
     }
 
-    /* Force all slider components and thumbs to Dark Purple */
+    /* Force BaseWeb Sliders to Dark Purple via CSS Variable and Direct Element Selectors */
+    div[data-baseweb="slider"] {
+        color: #4a2874 !important;
+    }
     div[data-baseweb="slider"] div[role="slider"] {
         background-color: #4a2874 !important;
         border-color: #4a2874 !important;
+        box-shadow: 0 0 2px rgba(0,0,0,0.3);
     }
+    /* Target track fill and inner elements */
     div[data-baseweb="slider"] div[data-testid="stSliderTrack"] {
+        background-color: #d4c2ed !important;
+    }
+    /* Target the active purple filled range bar */
+    div[data-baseweb="slider"] div > div > div > div {
         background-color: #4a2874 !important;
     }
-    .stSlider div[data-baseweb="slider"] div div div {
-        background-color: #4a2874 !important;
+    /* Catch-all for any remaining BaseWeb thumb/track pseudo-elements */
+    .stSlider [data-baseweb="slider"] * {
+        accent-color: #4a2874 !important;
     }
     </style>
 """, unsafe_allow_html=True)
