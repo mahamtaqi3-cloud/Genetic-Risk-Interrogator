@@ -6,22 +6,22 @@ from fpdf import FPDF
 import tempfile
 import os
 
-# --- 1. CLEAN LIGHT CLINICAL THEME ---
+# --- 1. LIGHT GREEN CLINICAL THEME ---
 st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", layout="wide")
 
 st.markdown("""
     <style>
     .stApp {
-        background-color: #f8f9fa;
+        background-color: #f6fcf7;
     }
     .main-header {
-        background: linear-gradient(135deg, #002b5c 0%, #0056b3 100%);
+        background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%);
         color: white;
         padding: 30px;
         border-radius: 12px;
         text-align: center;
         margin-bottom: 25px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 4px 6px rgba(45,106,79,0.1);
     }
     .main-header h1 {
         color: white;
@@ -30,28 +30,28 @@ st.markdown("""
         font-size: 28px;
     }
     .main-header p {
-        color: #e2e8f0;
+        color: #d8f3dc;
         margin-top: 5px;
         font-weight: 300;
     }
     div[data-testid="metric-container"] {
         background-color: white;
-        border: 1px solid #e2e8f0;
+        border: 1px solid #d8f3dc;
         padding: 15px;
         border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        box-shadow: 0 2px 4px rgba(45,106,79,0.03);
     }
     div[data-testid="metric-container"] > label {
-        color: #0077b6 !important;
+        color: #2d6a4f !important;
         font-weight: 600;
     }
     div[data-testid="metric-container"] > div > div {
-        color: #2b9348 !important;
+        color: #40916c !important;
         font-weight: 700;
     }
     section[data-testid="stSidebar"] {
         background-color: #ffffff;
-        border-right: 1px solid #e2e8f0;
+        border-right: 1px solid #d8f3dc;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -183,11 +183,10 @@ if st.button("Run Contextual Analysis", type="primary"):
 if 'last_analysis' in st.session_state:
     res = st.session_state['last_analysis']
     
-    # Generate clean PDF Report
     pdf = FPDF()
     pdf.add_page()
     pdf.set_font("helvetica", "B", 18)
-    pdf.set_text_color(0, 43, 92)
+    pdf.set_text_color(27, 67, 50)
     pdf.cell(0, 10, "Genetic Risk Interrogator - Diagnostic Report", new_x="LMARGIN", new_y="NEXT", align="C")
     
     pdf.set_font("helvetica", "I", 10)
@@ -196,7 +195,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(10)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(0, 86, 179)
+    pdf.set_text_color(45, 106, 79)
     pdf.cell(0, 10, "1. Patient Genomic Summary", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "", 11)
@@ -206,7 +205,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(5)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(0, 86, 179)
+    pdf.set_text_color(45, 106, 79)
     pdf.cell(0, 10, "2. Global Admixture Breakdown", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "", 11)
@@ -218,7 +217,7 @@ if 'last_analysis' in st.session_state:
     pdf.ln(5)
     
     pdf.set_font("helvetica", "B", 14)
-    pdf.set_text_color(0, 86, 179)
+    pdf.set_text_color(45, 106, 79)
     pdf.cell(0, 10, "3. Risk Evaluation Results & Recommendations", new_x="LMARGIN", new_y="NEXT")
     
     pdf.set_font("helvetica", "B", 11)
@@ -227,7 +226,6 @@ if 'last_analysis' in st.session_state:
     pdf.set_font("helvetica", "", 11)
     pdf.multi_cell(0, 7, f"Clinical Interpretation: {res['recommendation']}")
 
-    # Save to temp file for download
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp_file:
         pdf.output(tmp_file.name)
         tmp_path = tmp_file.name
