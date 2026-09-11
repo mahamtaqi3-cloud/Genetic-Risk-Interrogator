@@ -62,18 +62,25 @@ st.markdown("""
         background-color: #381e5c !important;
         border-color: #381e5c !important;
     }
-    /* Comprehensive Slider / Scrollbar Styling to Dark Purple */
+    /* Comprehensive Slider Styling to Dark Purple */
     input[type="range"] {
         accent-color: #4a2874 !important;
     }
     div[data-baseweb="slider"] div[role="slider"] {
         background-color: #4a2874 !important;
         border-color: #4a2874 !important;
+        box-shadow: 0 0 0 2px #d4c2ed !important;
     }
-    div[data-baseweb="slider"] div[data-testid="stSliderTrack"] {
+    div[data-baseweb="slider"] div[data-testid="stSliderTrack"],
+    div[data-baseweb="slider"] div[data-baseweb="track"] {
         background-color: #4a2874 !important;
     }
-    .stSlider [data-baseweb="slider"] div div div {
+    /* Target BaseWeb specific internal track fills/grabs */
+    .stSlider [data-baseweb="slider"] div div {
+        background-color: #4a2874;
+    }
+    /* Target Streamlit specific slider thumb / track spans */
+    span[data-baseweb="tag"], div[role="slider"] {
         background-color: #4a2874 !important;
     }
     </style>
