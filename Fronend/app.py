@@ -53,9 +53,22 @@ st.markdown("""
         background-color: #f3eef8;
         border-right: 1px solid #d4c2ed;
     }
-    /* Style sliders/scrolling tools with dark purple accent */
-    .stSlider slider {
-        accent-color: #4a2874 !important;
+    /* Style Primary Button to Dark Purple */
+    button[kind="primary"] {
+        background-color: #4a2874 !important;
+        border-color: #4a2874 !important;
+    }
+    button[kind="primary"]:hover {
+        background-color: #381e5c !important;
+        border-color: #381e5c !important;
+    }
+    /* Style Sliders to Dark Purple */
+    div[data-baseweb="slider"] div[role="slider"] {
+        background-color: #4a2874 !important;
+        border-color: #4a2874 !important;
+    }
+    div[data-baseweb="slider"] div[data-testid="stSliderTrack"] {
+        background-color: #4a2874 !important;
     }
     </style>
 """, unsafe_allow_html=True)
