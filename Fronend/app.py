@@ -11,14 +11,12 @@ st.set_page_config(page_title="Genetic Risk Interrogator", page_icon="🧬", lay
 
 st.markdown("""
     <style>
-    /* Override Streamlit global theme primary accent color */
-    :root {
+    /* Override Streamlit core theme variables to change default red to dark purple */
+    :root, body, [data-testid="stAppViewContainer"], .stApp {
         --primary-color: #4a2874 !important;
+        background-color: #f3eef8 !important;
     }
-    
-    .stApp {
-        background-color: #f3eef8;
-    }
+
     .main-header {
         background: linear-gradient(135deg, #2c1654 0%, #4a2874 100%);
         color: white;
@@ -69,10 +67,7 @@ st.markdown("""
         border-color: #381e5c !important;
     }
 
-    /* Force all slider thumbs, tracks, and active fills to Dark Purple */
-    input[type="range"] {
-        accent-color: #4a2874 !important;
-    }
+    /* Force all slider components and thumbs to Dark Purple */
     div[data-baseweb="slider"] div[role="slider"] {
         background-color: #4a2874 !important;
         border-color: #4a2874 !important;
@@ -82,10 +77,6 @@ st.markdown("""
     }
     .stSlider div[data-baseweb="slider"] div div div {
         background-color: #4a2874 !important;
-    }
-    div[data-baseweb="slider"] [data-testid="stSliderThumb"] {
-        background-color: #4a2874 !important;
-        border-color: #4a2874 !important;
     }
     </style>
 """, unsafe_allow_html=True)
